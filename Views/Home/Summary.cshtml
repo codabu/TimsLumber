@@ -1,0 +1,33 @@
+﻿@model OrderViewModel
+
+@{
+    ViewData["Title"] = "Tim's Lumber - Order Summary";
+}
+
+<div class="row">
+    <div class="col-12">
+        <H2>Your order</H2>
+        <table class="table table-bordered table-striped mt-2">
+            <thead>
+                <tr>
+                    <th>Size</th>
+                    <th>Length</th>
+                    <th>Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (OrderItem OI in Model.Order.Items)
+                {
+                    <tr>
+                        <td>@OI.LItem.NominalSize - (@OI.LItem.ActualSize)</td>
+                        <td>@OI.Length ft</td>
+                        <td>@OI.Cost.ToString("C2")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <h3>Subtotal: @Model.Order.Subtotal.ToString("C2")</h3>
+        <h3>Tax: @Model.Order.Tax.ToString("C2")</h3>
+        <h3>Total: @Model.Order.Tax.ToString("C2")</h3>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+﻿@model AddViewModel
+
+@{
+    ViewData["Title"] = "Tim's Lumber - New Order";
+}
+
+<div asp-validation-summary="All" class="text-danger"></div>
+<div class="row">
+    <div class="col-6">
+        <p2>Lumber Price List</p2>
+        <table class="table table-bordered table-striped mt-2">
+            <thead>
+                <tr>
+                    <th>Actual Size</th>
+                    <th>Nominal size</th>
+                    <th>Price per foot</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (LumberItem LI in Model.LumberItems)
+                {
+                    <tr>
+                        <td>@LI.ActualSize</td>
+                        <td>@LI.NominalSize</td>
+                        <td>$@LI.PricePerFt/ft</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-6">
+        <p2>Add to your order</p2>
+        <form asp-action="Add" method="post">
+            <div class="form-group">
+
+                <label asp-for="LumberItemId">Status:</label>
+                <select asp-for="LumberItemId" class="form-control"
+                        asp-items="@(new SelectList(Model.LumberItems, "LumberItemId", "NominalSize"))">
+                    <option value=""></option>
+                </select>
+
+                <div class="form-group">
+                    <label asp-for="Length">Length required (in ft)</label>
+                    <input type="number" asp-for="Length" class="form-control">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+        <br />
+        <br />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Length</th>
+                    <th>Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (OrderItem OI in Model.ThisOrder.Items)
+                {
+                    <tr>
+                        <td>@OI.LItem.NominalSize - (@OI.LItem.ActualSize)</td>
+                        <td>@OI.Length</td>
+                        <td>@OI.Cost.ToString("C2")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br/>
+        <form asp-action="ViewOrder" method="get">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
