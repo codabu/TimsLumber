@@ -1,0 +1,43 @@
+﻿@model OrderViewModel
+
+@{
+    ViewData["Title"] = "Tim's Lumber - My Orders";
+}
+
+<div class="row">
+    <div class="col-12">
+        <H2>Your orders</H2>
+
+        
+            <table class="table table-bordered table-striped mt-2">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Length</th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (Order o in Model.Orders)
+                {
+
+
+                    <tbody>
+                        <tr>
+                            <td>@o.OrderId</td>
+                            <td></td>
+                            <td>@o.Total.ToString("C2")</td>
+                            <td>
+                                <form asp-action="EditPage" method="post">
+                                    <input type="hidden" asp-for="OrderID" value="@o.OrderId" />
+                                    <button type="submit">Edit</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                }
+            </table>
+        
+    </div>
+</div>

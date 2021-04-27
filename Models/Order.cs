@@ -17,9 +17,8 @@ namespace TimsLumber.Models
         public double Tax { get; set; }
 
         public double Total { get; set; }
-        public ICollection<OrderItem> Items { get; set; }
+        public ICollection<OrderItem> OrderItems { get; set; }
 
-        [ForeignKey("User")]
         public string UserId { get; set; }
 
         public virtual User User { get; set; }

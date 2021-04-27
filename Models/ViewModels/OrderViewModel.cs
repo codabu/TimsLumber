@@ -9,5 +9,8 @@ namespace TimsLumber.Models
     {
         public Order Order { get; set; }
 
+        public List<Order> Orders { get; set; }
+
+        public int OrderID { get; set; }
     }
 }

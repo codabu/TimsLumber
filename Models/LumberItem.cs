@@ -13,5 +13,7 @@ namespace TimsLumber.Models
         public string ActualSize { get; set; }
 
         public double PricePerFt { get; set; }
+
+        public ICollection<OrderItem> OrderItems { get; set; }
     }
 }

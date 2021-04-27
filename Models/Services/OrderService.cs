@@ -14,8 +14,8 @@ namespace TimsLumber.Models
             OrderItem OI = new OrderItem();
             LumberItem li = context.Find<LumberItem>(model.LumberItemId);
             OI.Length = model.Length;
-            OI.LItem = li;
-            OI.Cost = OI.LItem.PricePerFt * OI.Length;
+            OI.LumberItem = li;
+            OI.Cost = OI.LumberItem.PricePerFt * OI.Length;
             return OI;
         }
 
@@ -33,7 +33,7 @@ namespace TimsLumber.Models
         {
             Order thisOrder = order;
             thisOrder.Subtotal = 0;
-            foreach(OrderItem OI in thisOrder.Items)
+            foreach(OrderItem OI in thisOrder.OrderItems)
             {
                 thisOrder.Subtotal += OI.Cost;
             }
@@ -46,12 +46,10 @@ namespace TimsLumber.Models
 
         public static Order PopulateLIs(Order order, TimsLumberContext context)
         {
-            foreach (OrderItem OI in order.Items)
+            foreach (OrderItem OI in order.OrderItems)
             {
-                int id = OI.OrderItemId;
-                int LId = int.Parse(context.OrderItems.FromSqlRaw($"SELECT LItemLumberItemId FROM OrderItems WHERE OrderItemId = {id}").ToString());
-                Console.WriteLine(LId);
-                //OI.LItem = context.Find<LumberItem>(LId);
+                int id = OI.LumberItemId;
+                OI.LumberItem = context.Find<LumberItem>(id);
             }
 
             return order;

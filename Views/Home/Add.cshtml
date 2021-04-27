@@ -6,7 +6,7 @@
 
 <div asp-validation-summary="All" class="text-danger"></div>
 <div class="row">
-    <div class="col-6">
+    <div class="col-8">
         <p2>Lumber Price List</p2>
         <table class="table table-bordered table-striped mt-2">
             <thead>
@@ -28,7 +28,7 @@
             </tbody>
         </table>
     </div>
-    <div class="col-6">
+    <div class="col-4">
         <p2>Add to your order</p2>
         <form asp-action="Add" method="post">
             <div class="form-group">
@@ -57,10 +57,10 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (OrderItem OI in Model.ThisOrder.Items)
+                @foreach (OrderItem OI in Model.ThisOrder.OrderItems)
                 {
                     <tr>
-                        <td>@OI.LItem.NominalSize - (@OI.LItem.ActualSize)</td>
+                        <td>@OI.LumberItem.NominalSize - (@OI.LumberItem.ActualSize)</td>
                         <td>@OI.Length</td>
                         <td>@OI.Cost.ToString("C2")</td>
                     </tr>

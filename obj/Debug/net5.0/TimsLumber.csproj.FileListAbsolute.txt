@@ -439,3 +439,6 @@ C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\
 C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Areas\Admin\Views\Admin\Home.cshtml.g.cs
 C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Views\Home\Add.cshtml.g.cs
 C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Views\Home\Summary.cshtml.g.cs
+C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Views\Home\MyOrders.cshtml.g.cs
+C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Views\Home\EditPage.cshtml.g.cs
+C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Views\Shared\_NavBar.cshtml.g.cs

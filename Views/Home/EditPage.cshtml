@@ -1,12 +1,13 @@
 ﻿@model OrderViewModel
 
-@{
-    ViewData["Title"] = "Tim's Lumber - Order Summary";
+@{ 
+    ViewData["Title"] = "Tim's Lumber - Edit Order";
 }
 
 <div class="row">
+    <form action ="Edit" method="post"></form>
     <div class="col-12">
-        <H2>Your order</H2>
+        <H2>Edit your order</H2>
         <h4>Order Id: @Model.Order.OrderId</h4>
         <table class="table table-bordered table-striped mt-2">
             <thead>
@@ -20,7 +21,8 @@
                 @foreach (OrderItem OI in Model.Order.OrderItems)
                 {
                     <tr>
-                        <td>@OI.LumberItem.NominalSize - (@OI.LumberItem.ActualSize)</td>
+                        <td>@OI.LumberItem.NominalSize - (@OI.LumberItem.ActualSize)
+                        </td>
                         <td>@OI.Length ft</td>
                         <td>@OI.Cost.ToString("C2")</td>
                     </tr>

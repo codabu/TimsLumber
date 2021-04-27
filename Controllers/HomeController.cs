@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using TimsLumber.Models;
 
@@ -16,13 +18,13 @@ namespace TimsLumber.Controllers
     {
 
         private TimsLumberContext context;
+        private readonly UserManager<User> _userManager;
 
 
-
-        public HomeController(TimsLumberContext ctx)
+        public HomeController(TimsLumberContext ctx, UserManager<User> userManager)
         {
             context = ctx;
-
+            _userManager = userManager;
         }
 
 
@@ -53,12 +55,12 @@ namespace TimsLumber.Controllers
             model.LumberItems = context.LumberItems.ToList();
             int id = int.Parse(HttpContext.Session.GetString("OrderId"));
             Order order = context.Find<Order>(id);
-            order.Items = context.OrderItems.FromSqlRaw($"SELECT * FROM OrderItems WHERE OrderId = {id}").ToList();
-            if (order.Items == null)
+            order.OrderItems = context.OrderItems.FromSqlRaw($"SELECT * FROM OrderItems WHERE OrderId = {id}").ToList();
+            if (order.OrderItems == null)
             {
-                order.Items = new List<OrderItem>();
+                order.OrderItems = new List<OrderItem>();
             }
-            order.Items.Add(OrderService.AddItemToOrder(model, context));
+            order.OrderItems.Add(OrderService.AddItemToOrder(model, context));
             context.Update(order);
             context.SaveChanges();
             model.ThisOrder = order;
@@ -72,13 +74,42 @@ namespace TimsLumber.Controllers
             OrderViewModel model = new OrderViewModel();
             int id = int.Parse(HttpContext.Session.GetString("OrderId"));
             Order order = context.Find<Order>(id);
-            order.Items = context.OrderItems.FromSqlRaw($"SELECT * FROM OrderItems WHERE OrderId = {id}").ToList();
+            order.OrderItems = context.OrderItems.FromSqlRaw($"SELECT * FROM OrderItems WHERE OrderId = {id}").ToList();
             order = OrderService.PopulateLIs(order, context);
             order = OrderService.FinalizeOrder(order);
+            order.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             context.Update(order);
             context.SaveChanges();
             model.Order = order;
             return View("Summary", model);
+        }
+        [HttpGet]
+        public IActionResult MyOrders()
+        {
+            OrderViewModel model = new OrderViewModel();
+            string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            List<Order> orders = context.Orders.FromSqlRaw($"SELECT * FROM Orders").ToList();
+            List<Order> myOrders = new List<Order>();
+            foreach (Order o in orders)
+            {
+                if (o.UserId == id)
+                {
+                    myOrders.Add(o);
+                }
+            }
+            model.Orders = myOrders;
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult EditPage(OrderViewModel model)
+        {
+            int thisId = model.OrderID;
+            Order order = context.Find<Order>(thisId);
+            order.OrderItems = context.OrderItems.FromSqlRaw($"SELECT * FROM OrderItems WHERE OrderId = {thisId}").ToList();
+            order = OrderService.PopulateLIs(order, context);
+            model.Order = order;
+            return View(model);
         }
     }
 }

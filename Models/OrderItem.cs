@@ -9,13 +9,18 @@ namespace TimsLumber.Models
 {
     public class OrderItem
     {
+        [Key]
         public int OrderItemId { get; set; }
-        public LumberItem LItem { get; set; }
+
+        public int LumberItemId { get; set; }
+        public LumberItem LumberItem { get; set; }
 
         public int Length { get; set; }
         public double Cost { get; set; }
 
-        [ForeignKey("Order")]
         public int OrderId { get; set; }
+
+        public Order Order { get; set; }
+        
     }
 }
