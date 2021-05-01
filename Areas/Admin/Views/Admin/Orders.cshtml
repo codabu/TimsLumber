@@ -1,0 +1,58 @@
+﻿@model TimsLumber.Areas.Admin.Models.AdminOrderViewModel;
+
+@{
+    ViewData["Title"] = "Tim's Lumber - My Orders";
+    double totalOrders = 0;
+}
+
+<div class="row">
+    <div class="col-9">
+        <H2>Your orders</H2>
+        <table class="table table-bordered table-striped mt-2">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Ordered by</th>
+                    <th>Email</th>
+                    <th>Total</th>
+                    <th>Edit / Delete</th>
+                </tr>
+            </thead>
+            @{int count = 0;}
+            @foreach (Order o in Model.Orders)
+            {
+                <tbody>
+                    <tr>
+                        <td>@o.OrderId</td>
+                        <td>@Model.UserNames[count]</td>
+                        <td>@Model.Emails[count]</td>
+                        <td>@o.Total.ToString("C2")</td>
+                        @{totalOrders += o.Total;}
+                    <td>
+                        <div style="float: left;padding-left: 10px;">
+                            <form asp-action="ViewOrder" method="post">
+                                <input type="hidden" asp-for="OrderID" value="@o.OrderId" />
+                                <button type="submit">View</button>
+                            </form>
+                        </div>
+                        <div style="float: left;padding-left: 20px;">
+                            <form asp-action="EditPage" method="post">
+                                <input type="hidden" asp-for="OrderID" value="@o.OrderId" />
+                                <button type="submit">Edit</button>
+                            </form>
+                        </div>
+                        <div style="float: left;padding-left: 20px;">
+                            <form asp-action="Delete" method="post">
+                                <input type="hidden" asp-for="OrderID" value="@o.OrderId" />
+                                <button type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                    </tr>
+                </tbody>
+                count++;
+            }
+        </table>
+        <h2>Total value of all orders: @totalOrders.ToString("C2")</h2>
+    </div>
+</div>

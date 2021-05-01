@@ -431,7 +431,6 @@ C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\
 C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Views\Account\AccessDenied.cshtml.g.cs
 C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
 C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Views\Account\Register.cshtml.g.cs
-C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Views\Home\Orders.cshtml.g.cs
 C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Areas\Admin\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Areas\Admin\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Areas\Admin\Views\_ViewImports.cshtml.g.cs
@@ -442,3 +441,7 @@ C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\
 C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Views\Home\MyOrders.cshtml.g.cs
 C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Views\Home\EditPage.cshtml.g.cs
 C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Views\Shared\_NavBar.cshtml.g.cs
+C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Views\Home\NewOrder.cshtml.g.cs
+C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Areas\Admin\Views\Admin\Orders.cshtml.g.cs
+C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Areas\Admin\Views\Admin\ViewOrder.cshtml.g.cs
+C:\Users\Corry\Desktop\Spring 2021 Classes\Advanced C#\Final Project\TimsLumber\obj\Debug\net5.0\Razor\Areas\Admin\Views\Admin\EditPage.cshtml.g.cs

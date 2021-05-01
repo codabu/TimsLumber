@@ -19,6 +19,32 @@ namespace TimsLumber.Models
             return OI;
         }
 
+        public static List<OrderItem> EditItems(int OId, int[] LIds, int[] Lengths, TimsLumberContext context)
+        {
+            //Delete the current order items
+            List<OrderItem> toDelete = context.OrderItems.FromSqlRaw($"SELECT * FROM OrderItems WHERE OrderId = {OId}").ToList();
+            foreach(OrderItem OI in toDelete)
+            {
+                context.OrderItems.Remove(OI);
+            }
+            context.SaveChanges();
+
+            //Add the edited items to the order
+            List<OrderItem> items = new List<OrderItem>();
+            for (int i = 0; i < LIds.Length; i++)
+            {
+                if (Lengths[i] > 0)
+                {
+                    OrderItem OI = new OrderItem();
+                    LumberItem li = context.Find<LumberItem>(LIds[i]);
+                    OI.Length = Lengths[i];
+                    OI.LumberItem = li;
+                    OI.Cost = OI.LumberItem.PricePerFt * OI.Length;
+                    items.Add(OI);
+                }
+            }
+            return items;
+        }
         private static double CalculateTax(double subtotal)
         {
             return subtotal * TaxRate;

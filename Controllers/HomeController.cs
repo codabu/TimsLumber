@@ -36,7 +36,7 @@ namespace TimsLumber.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult Orders()
+        public IActionResult NewOrder()
         {
             AddViewModel model = new AddViewModel();
             model.LumberItems = context.LumberItems.ToList();
@@ -44,10 +44,11 @@ namespace TimsLumber.Controllers
             context.Add(order);
             context.SaveChanges();
             HttpContext.Session.SetString("OrderId", order.OrderId.ToString());
-            int id = int.Parse(HttpContext.Session.GetString("OrderId"));
+            //int id = int.Parse(HttpContext.Session.GetString("OrderId")); //is this line redundant?
             return View(model);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Add(AddViewModel model)
         {
@@ -67,6 +68,7 @@ namespace TimsLumber.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult ViewOrder()
         {
@@ -83,6 +85,8 @@ namespace TimsLumber.Controllers
             model.Order = order;
             return View("Summary", model);
         }
+
+        [Authorize]
         [HttpGet]
         public IActionResult MyOrders()
         {
@@ -101,6 +105,7 @@ namespace TimsLumber.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult EditPage(OrderViewModel model)
         {
@@ -108,8 +113,36 @@ namespace TimsLumber.Controllers
             Order order = context.Find<Order>(thisId);
             order.OrderItems = context.OrderItems.FromSqlRaw($"SELECT * FROM OrderItems WHERE OrderId = {thisId}").ToList();
             order = OrderService.PopulateLIs(order, context);
+            model.LumberItems = context.LumberItems.ToList();
             model.Order = order;
             return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Edit(int OrderId, int[] LIds, int[] Lengths)
+        {
+            OrderViewModel model = new OrderViewModel();
+            Order order = context.Find<Order>(OrderId);
+            order.OrderItems = OrderService.EditItems(OrderId, LIds, Lengths, context);
+            //missing some things here LI's maybe
+            order = OrderService.FinalizeOrder(order);
+            context.Orders.Update(order);
+            context.SaveChanges();
+            model.Order = order;
+            model.OrderID = order.OrderId;
+            return View("Summary", model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Delete(OrderViewModel model)
+        {
+            int id = model.OrderID;
+            Order order = context.Find<Order>(id);
+            context.Remove(order);
+            context.SaveChanges();
+            return RedirectToAction("MyOrders");
         }
     }
 }

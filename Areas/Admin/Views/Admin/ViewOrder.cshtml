@@ -1,0 +1,39 @@
+﻿@model TimsLumber.Areas.Admin.Models.AdminOrderViewModel;
+
+@{
+    ViewData["Title"] = "Tim's Lumber - Order Summary";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h3>Order Id: @Model.Order.OrderId</h3>
+        <h4>Ordered by: @Model.UserNames[0]</h4>
+        <h4>Contact email address: @Model.Emails[0]</h4>
+        <table class="table table-bordered table-striped mt-2">
+            <thead>
+                <tr>
+                    <th>Size</th>
+                    <th>Length</th>
+                    <th>Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (OrderItem OI in Model.Order.OrderItems)
+                {
+                    <tr>
+                        <td>@OI.LumberItem.NominalSize - (@OI.LumberItem.ActualSize)</td>
+                        <td>@OI.Length ft</td>
+                        <td>@OI.Cost.ToString("C2")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <h4 class="text-right">Subtotal: @Model.Order.Subtotal.ToString("C2")</h4>
+        <h4 class="text-right">Tax: @Model.Order.Tax.ToString("C2")</h4>
+        <h4 class="text-right">Total: @Model.Order.Total.ToString("C2")</h4>
+
+        <a asp-action="Orders">
+            <input type="button" class="btn btn-primary" value="Return to order management" />
+        </a>
+    </div>
+</div>

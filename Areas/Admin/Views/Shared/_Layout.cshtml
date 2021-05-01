@@ -28,7 +28,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Orders">Orders</a>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="Orders">Orders</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">
@@ -67,7 +67,7 @@
                         }
 
                         <li class="nav-item @Nav.Active("Admin", current)">
-                            <a class="nav-link" asp-action="AdminHome" asp-controller="Admin" asp-area="Admin">
+                            <a class="nav-link" asp-action="Home" asp-controller="Admin" asp-area="Admin">
                                 <span class="fas fa-cog"></span>&nbsp;Admin
                             </a>
                         </li>

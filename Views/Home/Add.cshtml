@@ -33,10 +33,9 @@
         <form asp-action="Add" method="post">
             <div class="form-group">
 
-                <label asp-for="LumberItemId">Status:</label>
+                <label asp-for="LumberItemId">Lumber size:</label>
                 <select asp-for="LumberItemId" class="form-control"
                         asp-items="@(new SelectList(Model.LumberItems, "LumberItemId", "NominalSize"))">
-                    <option value=""></option>
                 </select>
 
                 <div class="form-group">
