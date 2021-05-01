@@ -5,7 +5,7 @@ namespace TimsLumber.Models
     public class RegisterViewModel
     {
         [Required(ErrorMessage = "Please enter a username.")]
-        [StringLength(255)]
+        [StringLength(30)]
         public string Username { get; set; }
 
         [Required(ErrorMessage = "Please enter a first name.")]

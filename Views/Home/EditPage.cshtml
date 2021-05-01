@@ -7,10 +7,11 @@
 <div class="row">
     
     <div class="col-12">
-        <form action="Edit" method="post">
+        <form action="" method="post">
             <H2>Edit your order</H2>
-            <H3>Please note : prices will update after submitting changes</H3>
-            <H3>To delete an item, set the length to zero</H3>
+            <strong>Please note : prices will update after submitting changes</strong>
+            <br />
+            <strong>To delete an item, set the length to zero</strong>
             <h4>Order Id: @Model.Order.OrderId</h4>
             <input type="hidden" asp-for="@Model.Order.OrderId" value="@Model.Order.OrderId" name="OrderId" />
             <table class="table table-bordered table-striped mt-2">
@@ -25,27 +26,32 @@
 
                     @foreach (OrderItem OI in Model.Order.OrderItems)
                     {
-                    <tr>
-                        <td>
-                            <label asp-for="@OI.LumberItemId">Item size: </label>
-                            <select asp-for="@OI.LumberItemId" class="form-control" name="LIds"
-                                    asp-items="@(new SelectList(Model.LumberItems, "LumberItemId", "NominalSize"))">
-                            </select>
-                        </td>
-                        <td>
-                            <label asp-for="@OI.Length">Length required (in ft)</label>
-                            <input type="number" asp-for="@OI.Length" name="Lengths" class="form-control">
-                        </td>
-                        <td>@OI.Cost.ToString("C2")</td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <label asp-for="@OI.LumberItemId">Item size: </label>
+                                <select asp-for="@OI.LumberItemId" class="form-control" name="LIds"
+                                        asp-items="@(new SelectList(Model.LumberItems, "LumberItemId", "NominalSize"))">
+                                </select>
+                            </td>
+                            <td>
+                                <label asp-for="@OI.Length">Length required (in ft)</label>
+                                <input type="number" asp-for="@OI.Length" name="Lengths" class="form-control">
+                            </td>
+                            <td>@OI.Cost.ToString("C2")</td>
+                        </tr>
                     }
                 </tbody>
             </table>
+            <button type="submit" class="btn btn-primary" formaction="EditAdd" asp-for="OrderId">Add item</button>
             <h4 class="text-right">Subtotal: @Model.Order.Subtotal.ToString("C2")</h4>
             <h4 class="text-right">Tax: @Model.Order.Tax.ToString("C2")</h4>
             <h4 class="text-right">Total: @Model.Order.Total.ToString("C2")</h4>
 
-            <button type="submit" class="btn btn-primary">Submit Changes</button>
+            <a asp-action="MyOrders">
+                <input type="button" class="btn btn-primary" value="Cancel" />
+            </a>
+
+            <button type="submit" class="btn btn-primary" formaction="Edit">Submit Changes</button>
         </form>
     </div>
 </div>

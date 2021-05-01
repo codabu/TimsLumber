@@ -76,9 +76,24 @@ namespace TimsLumber.Areas.Admin.Controllers
             return View(model);
         }
 
+        [HttpPost]
         public IActionResult EditPage(OrderViewModel model)
         {
             int thisId = model.OrderID;
+            Order order = context.Find<Order>(thisId);
+            order.OrderItems = context.OrderItems.FromSqlRaw($"SELECT * FROM OrderItems WHERE OrderId = {thisId}").ToList();
+            order = OrderService.PopulateLIs(order, context);
+            model.LumberItems = context.LumberItems.ToList();
+            model.Order = order;
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult EditPage()
+        {
+            OrderViewModel model = new OrderViewModel();
+
+            int thisId = (int)TempData["OrderId"];
             Order order = context.Find<Order>(thisId);
             order.OrderItems = context.OrderItems.FromSqlRaw($"SELECT * FROM OrderItems WHERE OrderId = {thisId}").ToList();
             order = OrderService.PopulateLIs(order, context);
@@ -107,6 +122,23 @@ namespace TimsLumber.Areas.Admin.Controllers
             model.Emails.Add(user.Email);
 
             return View("ViewOrder", model);
+        }
+
+        [HttpPost]
+        public IActionResult EditAdd(int OrderId)
+        {
+            //add a new blank item to the order
+            OrderItem OI = new OrderItem();
+            OI.Length = 0;
+            OI.Cost = 0;
+            OI.LumberItemId = 1;
+            OI.OrderId = OrderId;
+
+            context.Add<OrderItem>(OI);
+            context.SaveChanges();
+
+            TempData["OrderId"] = OrderId;
+            return RedirectToAction("EditPage", "Admin");
         }
 
         [HttpPost]

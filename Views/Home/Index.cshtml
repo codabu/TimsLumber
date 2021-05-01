@@ -2,3 +2,27 @@
     ViewData["Title"] = "Tim's Lumber Yard";
 }
 
+<h1> Welcome To Tim's Lumber Yard</h1>
+
+
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> signInManager
+
+@if (signInManager.IsSignedIn(User))
+{
+    // signed-in user - Log Out button and username
+    <p>It's great to have you back @User.Identity.Name! <br /> Use the navbar above to create, view or manage orders.</p>
+}
+else
+{
+    var action = ViewContext.RouteData.Values["action"]?.ToString();
+
+    // anonymous user - Register link and Log In button
+    <p>Use the navbar above to log in or register an account. Once logged in, you can create a new order or manage orders you have already placed.</p>
+}
+
+<p>We are your one-stop shop for all your lumber needs. Whether you're taking on a DIY project, renovating your home, or building several, we have all your lumber needs covered.</p>
+
+<p>Click to download our <a href="/pricelist/Tims-lumber-price-list.pdf" download>price list</a></p>
+
+<img src="/images/wood_floor.jpg" class="img-fluid">

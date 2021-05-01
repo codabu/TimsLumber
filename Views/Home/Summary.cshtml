@@ -30,5 +30,9 @@
         <h4 class="text-right">Subtotal: @Model.Order.Subtotal.ToString("C2")</h4>
         <h4 class="text-right">Tax: @Model.Order.Tax.ToString("C2")</h4>
         <h4 class="text-right">Total: @Model.Order.Total.ToString("C2")</h4>
+
+        <a asp-action="MyOrders">
+            <input type="button" class="btn btn-primary" value="Back to orders" />
+        </a>
     </div>
 </div>
