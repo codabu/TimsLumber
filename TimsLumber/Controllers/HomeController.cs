@@ -80,6 +80,11 @@ namespace TimsLumber.Controllers
             int id = int.Parse(HttpContext.Session.GetString("OrderId"));
             Order order = context.Find<Order>(id);
             order.OrderItems = context.OrderItems.FromSqlRaw($"SELECT * FROM OrderItems WHERE OrderId = {id}").ToList();
+            //fix to prevent submitting an empty order
+            if (order.OrderItems.Count == 0)
+            {
+                return RedirectToAction("NewOrder");
+            }
             order = OrderService.PopulateLIs(order, context);
             order = OrderService.FinalizeOrder(order);
             order.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
