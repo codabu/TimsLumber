@@ -35,7 +35,7 @@
                             </td>
                             <td>
                                 <label asp-for="@OI.Length">Length required (in ft)</label>
-                                <input type="number" asp-for="@OI.Length" name="Lengths" class="form-control">
+                                <input type="number" asp-for="@OI.Length" name="Lengths" class="form-control" min="0" max="30">
                             </td>
                             <td>@OI.Cost.ToString("C2")</td>
                         </tr>
